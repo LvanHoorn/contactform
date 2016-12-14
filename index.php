@@ -2,6 +2,8 @@
 
 session_start();
 
+require_once 'helper/security.php';
+
 $errors = isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
 $fields = isset($_SESSION['fields']) ? $_SESSION['fields'] : [];
 
@@ -35,17 +37,19 @@ $fields = isset($_SESSION['fields']) ? $_SESSION['fields'] : [];
 		<form action="contact.php" method="post">
 			
 			<p class="name">
-				<input type="text" name="name" id="name" placeholder="John Doe" autocomplete="off" <?php echo isset($fields['name']) ? ' value="' . $fields['name'] . '"' : '' ?>>
+				<input type="text" name="name" id="name" placeholder="John Doe" autocomplete="off" <?php echo isset($fields['name']) ? ' value="' . e($fields['name']) . '"' : '' ?>>
 				<label for="name">Name</label>
 			</p>
 			
 			<p class="email">
-				<input type="text" name="email" id="email" placeholder="mail@example.com" autocomplete="off" />
+				<input type="text" name="email" id="email" placeholder="mail@example.com" autocomplete="off" <?php echo isset($fields['email']) ? ' value="' . e($fields['email']) . '"' : '' ?>>
 				<label for="email">Email</label>
 			</p>	
 		
 			<p class="message">
-				<textarea name="message" placeholder="Write something to us" /></textarea>
+				<textarea name="message" placeholder="Write something to us" 
+				<?php echo isset($fields['message']) ?  e($fields['message']) : '' ?>>
+				</textarea>
 			</p>
 			
 			<p class="submit">
